@@ -9,18 +9,23 @@ First: let's take a look what do we need so far:
 2. Provisioned Oracle Cloud Account 
 3. Oracle Analytics Cloud (OAC) instance with at least one dashboard
 
-## Solution overview
-pic
-
 ## IDCS Instruction
-correct in the article
+follow the original article 
+
 !!better to create user with minimum user privileges
 
 curl to test idcs access
+```
+curl --request POST --url https://idcs-9f41fd5d4f4c4c84acf494bbc1a6cd1a.identity.oraclecloud.com/oauth2/v1/token --header 'authorization: Basic ODgxMzg1ZjNmMDMyNDRkYTk1NWFmYzBjOGU2YWJkMjg6NTEwYTk2OWMtNWYyYi00YzY0LTk0NjItY2U0ZTM1ZWUwYzc5' -d 'grant_type=password&username=tech@protehstandart.ru&password=Qwerty$4&scope=https://rx7ulaytis4pqljnxmbxti7mi462mklq.analytics.ocp.oraclecloud.comurn:opc:resource:consumer::all' |jq ".access_token"
 
+```
+
+## API Gateway
 
 
 ## Script for function
+
+[tutorial Oracle fn](https://www.oracle.com/webfolder/technetwork/tutorials/infographics/oci_faas_gettingstarted_quickview/functions_quickview_top/functions_quickview/index.html)
 
 Scrit purpose is to generate request to obtain access token to IDCS and to parse respond. The outcome of the script is IDCS responce in json format
 
