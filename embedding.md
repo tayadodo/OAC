@@ -22,7 +22,7 @@ curl to test idcs access
 
 ## Script for function
 
-Scrit purpose is to generate request to obtain access token to IDCS and to parse respond. The outcome of the script is token
+Scrit purpose is to generate request to obtain access token to IDCS and to parse respond. The outcome of the script is IDCS responce in json format
 
 ```python
 import io
@@ -32,7 +32,7 @@ import requests, os
 
 from fdk import response
 
-#url = "https://<IDCS ref>.identity.oraclecloud.com/oauth2/v1/token"
+#url = "https://<IDCS url>.identity.oraclecloud.com/oauth2/v1/token"
 url = os.environ["url"]
 header = {"authorization": "Basic <User Secret>", "content-type": "application/x-www-form-urlencoded;charset=UTF-8"}
 body = "grant_type=password&username=<User Name>&password=<Password>&scope=<Scope from IDCS>"
@@ -40,7 +40,7 @@ body = "grant_type=password&username=<User Name>&password=<Password>&scope=<Scop
 
 def handler(ctx, data: io.BytesIO = None):
     try:
-#        body = json.loads(data.getvalue())
+#       body = json.loads(data.getvalue())
         res = requests.post (url, data = body, headers=header)
     except (Exception, ValueError) as ex:
         logging.getLogger().info('error parsing json payload: ' + str(ex))
@@ -52,11 +52,11 @@ def handler(ctx, data: io.BytesIO = None):
     )
 ```
 
-<IDCS ref>
-<User Secret>
-<User Name>
-<Password>
-<Scope from IDCS>
+`<IDCS url>`
+`<User Secret>`
+`<User Name>`
+`<Password>`
+`<Scope from IDCS>`
     
 ## HTML page
 ```html
@@ -65,20 +65,20 @@ def handler(ctx, data: io.BytesIO = None):
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <title>Standalone DV Embed Demo Using Token</title>
-   <script src="https://collegeanalytics-idyitryfqwhd-ia.analytics.ocp.oraclecloud.com/public/dv/embedding/v1/standalone/embedding.js?token=true" type="application/javascript">
+   <script src="https://<OAC dev URL>/public/dv/embedding/v1/standalone/embedding.js?token=true" type="application/javascript">
    </script>
   </head>
  <body>
    <B>Standalone embedded project test</B>
    <div style="width: calc(100% — 40px); height: (100% — 40px); border: 1px solid black; padding: 10px;" >
     <oracle-dv
-    project-path="/@Catalog/users/tech@protehstandart.ru/students/StudentAnalysis"
+    project-path="<Project Path>"
     active-page="canvas"
     active-tab-id="1">
     </oracle-dv>
    </div>
  <script>
-  var Url = "https://aval4h3qpmf5fhjqas666ar5de.apigateway.us-ashburn-1.oci.customer-oci.com/token/get_token"
+  var Url = "https://<API GATEWAY url>.apigateway.<AD>.oci.customer-oci.com/token/get_token"
 
   var token_request = new XMLHttpRequest();
   token_request.open("GET", Url, false);
@@ -103,3 +103,8 @@ def handler(ctx, data: io.BytesIO = None):
  </body>
 </html>
 ```
+
+`<API GATEWAY url>`
+`<AD>` like us-ashburn-1
+`<Project Path>`
+`<OAC dev URL>`
